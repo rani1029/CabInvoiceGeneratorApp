@@ -1,0 +1,64 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CabInvoiceGeneratorApp
+{
+    class InvoiceGenerator
+    {
+        RideType ridetype;
+        // constants Declaration
+        private readonly double MIN_COST_PER_KM;
+        private readonly double COST_PER_TIME;
+        private readonly double MIN_FAIR;
+        //constructor
+        public InvoiceGenerator(RideType ridetype)
+        {
+            this.ridetype = ridetype;
+            //private RideRepository rideRepository;
+            try
+            {
+                //constant if Ridetype is normal
+                if (this.ridetype.Equals(RideType.NORMAL))
+                {
+                    this.MIN_COST_PER_KM = 10;
+                    this.COST_PER_TIME = 1;
+                    this.MIN_FAIR = 5;
+                }
+                if (this.ridetype.Equals(RideType.PREMIUM))
+                {
+                    this.MIN_COST_PER_KM = 15;
+                    this.COST_PER_TIME = 2;
+                    this.MIN_FAIR = 20;
+                }
+            }
+            //if ridetype is invalid
+            catch (CabInvoiceException)
+            {
+                throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_RIDE_TYPE, "Invalid Ride Type");
+            }
+        }
+        public double CalculateFare(double distance, int time)
+        {
+            double totalFair = 0;
+            try
+            {
+                totalFair = distance * MIN_COST_PER_KM + time * COST_PER_TIME;
+            }
+            catch (CabInvoiceException)
+            {
+                if (distance <= 0)
+                {
+                    throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_DISTANCE, "Invalid Distance");
+                }
+                if (time <= 0)
+                {
+                    throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_TIME, "Invalid Time");
+                }
+            }
+            //if total fare is less than minimum fare 
+            return Math.Max(totalFair, MIN_FAIR);
+        }
+    }
+}
+
