@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CabInvoiceGeneratorApp
 {
-    class Ride
+    public class Ride
     {
         public double distance;
         public int time;
