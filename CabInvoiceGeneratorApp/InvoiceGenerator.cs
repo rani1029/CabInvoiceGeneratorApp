@@ -17,7 +17,6 @@ namespace CabInvoiceGeneratorApp
         public InvoiceGenerator(RideType ridetype)
         {
             this.ridetype = ridetype;
-            //private RideRepository rideRepository;
             try
             {
                 //constant if Ridetype is normal

@@ -38,5 +38,38 @@ namespace NUnitTestProject1
             Assert.AreEqual(expectedSummary, invoiceSummary);
 
         }
+        //Uc3 given multiple rides should returns number of rides 
+        [Test]
+        public void Return_NumofRides()
+        {
+            InvoiceGenerator invoice = new InvoiceGenerator(RideType.NORMAL);
+            Ride[] rides = { new Ride(3.0, 5), new Ride(0.1, 1) };
+
+            InvoiceSummary summary = new InvoiceSummary(2, 40.0);
+            InvoiceSummary expected = invoice.CalculateFare(rides);
+            Assert.AreEqual(summary.numberOfRides, expected.numberOfRides);
+        }
+
+        //Uc3 given multiple rides should returns Total fare
+        [Test]
+        public void Return_TotalFare()
+        {
+            InvoiceGenerator invoice = new InvoiceGenerator(RideType.NORMAL);
+            Ride[] rides = { new Ride(3.0, 5), new Ride(0.1, 1) };
+
+            InvoiceSummary summary = new InvoiceSummary(2, 40.0);
+            InvoiceSummary expected = invoice.CalculateFare(rides);
+            Assert.AreEqual(summary.totalFare, expected.totalFare);
+        }
+        //Uc3 given multiple rides should return average fare
+        [Test]
+        public void Return_AverageFare()
+        {
+            InvoiceGenerator invoice = new InvoiceGenerator(RideType.NORMAL);
+            Ride[] rides = { new Ride(3.0, 5), new Ride(0.1, 1) };
+            InvoiceSummary summary = new InvoiceSummary(2, 40.0);
+            InvoiceSummary expected = invoice.CalculateFare(rides);
+            Assert.AreEqual(summary.averageFare, expected.averageFare);
+        }
     }
 }
